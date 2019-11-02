@@ -25,10 +25,8 @@ echo	'	{'
 # Print all tests from source files as cases, ordered by line.
 # Note: I deliberately did not redirect stderr to /dev/null, generated file will
 # be corrupted if a test file can't be read!
-printf "%s" "$(cat -n "$@" | sed -E "s/\s*([0-9]+)\s*(.*)/\t\tcase \1:\n\t\t\treturn (printf(\2));/")"
+printf "%s\n" "$(cat "$@" | cat -n | sed -E 's/^[ \t]*([0-9]+)(.*)/case \1: return (printf(\2));/')"
 
-echo	''
-echo	'		default:'
-echo	'			return (printf("Error 418: Coffee not found!"));'
+echo	'default: return (printf("Error 418: Coffee not found!"));'
 echo	'	}'
 echo	'}'

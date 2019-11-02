@@ -1,3 +1,60 @@
+"Please don't try to get all these tests green. They're here for curiosity and complete knowledge of your function's behaviour. %p", "just wrong"
 "%.7-10#x", 546768
 "%hh0d", 257
-"Please don't try to get all these tests green. They're here for curiosity and complete knowledge of your function's behaviour. %x", "just wrong"
+"%ll15.*hh %c", '-', '*'
+"%ll15.*hhZ %c", '-', '*'
+"%"
+"% "
+"% h"
+"%Z"
+"% hZ"
+"%05%"
+"%-05%"
+"% hZ%"
+"% Z", "test"
+"% Z ", "test"
+"% Z%s", "test"
+"%000   %", "test"
+"%%%", "test"
+"%%   %", "test"
+"%jx", 4294967295
+"%jx", 4294967296
+"%jx", -4294967296
+"%jx", -4294967297
+"%ll#x", 9223372036854775807
+"%010s is a string", "this"
+"%-010s is a string", "this"
+"%05c", 42
+"% Z", 42
+"%0 d", 42
+"%0 d", -42
+"% 0d", 42
+"% 0d", -42
+"%5+d", 42
+"%5+d", -42
+"%-5+d", 42
+"%-0+5d", 42
+"%-5+d", -42
+"%-0+5d", -42
+"%jd", 9223372036854775807
+"%jd", -9223372036854775808
+"%zd", 4294967295
+"%zd", 4294967296
+"%zd", -0
+"%zd", -1
+"%ju", 4999999999
+"%ju", 4294967296
+"%U", 4294967295
+"%hU", 4294967296
+"%U", 4294967296
+"%zhd", 4294967296
+"%jzd", 9223372036854775807
+"%jhd", 9223372036854775807
+"%lhl", 9223372036854775807
+"%lhlz", 9223372036854775807
+"%zj", 9223372036854775807
+"%lhh", 2147483647
+"%hhld", 128
+"@main_ftprintf: %####0000 33..1..#00d\\n", 256
+"@main_ftprintf: %####0000 33..1d", 256
+"@main_ftprintf: %###-#0000 33...12..#0+0d", 256

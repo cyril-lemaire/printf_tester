@@ -20,7 +20,7 @@ fi
 echo "Test files: ${TEST_FILES[@]}"
 
 printf "${GREEN}Compiling ${FT_PRINTF_PATH}/libftprintf.a${CLRCLR}\n"
-make -C $FT_PRINTF_PATH re && cp "${FT_PRINTF_PATH}/${LIBNAME}" .
+make -C $FT_PRINTF_PATH&& cp "${FT_PRINTF_PATH}/${LIBNAME}" .
 
 printf "${GREEN}Generating C main for printf${CLRCLR}\n"
 ./generate_main.sh ${TEST_FILES[@]} > $GENERATED_C_FILE
@@ -29,7 +29,7 @@ printf "${GREEN}Compiling tester for printf${CLRCLR}\n"
 gcc -w -o $PRINTF_TESTER $GENERATED_C_FILE $LIBNAME > /dev/null
 
 printf "${GREEN}Generating C main for ft_printf${CLRCLR}\n"
-sed -i 's/(printf(/(ft_printf(/g' $GENERATED_C_FILE
+sed -i .back 's/(printf(/(ft_printf(/g' $GENERATED_C_FILE
 
 printf "${GREEN}Compiling tester for ft_printf${CLRCLR}\n"
 gcc -w -o $FT_PRINTF_TESTER $GENERATED_C_FILE $LIBNAME >/dev/null
