@@ -1,0 +1,3 @@
+"%.7-10#x", 546768
+"%hh0d", 257
+"Please don't try to get all these tests green. They're here for curiosity and complete knowledge of your function's behaviour. %x", "just wrong"
