@@ -13,10 +13,9 @@ YOUR_MAKE_TARGETS=all
 
 # If set to true, will also show successful tests output.
 # Note please only set to commands `true` or `false`, not a value!
-SHOW_PASSED_TESTS=true
-
+SHOW_PASSED_TESTS=false
 # Source files tested if none is given as argument.
-DEFAULT_TEST_FILES=('test'*)
+DEFAULT_TEST_FILES=`find . -name "tests*"`
 
 PRINTF_TESTER='printf_tester'
 FT_PRINTF_TESTER='ft_printf_tester'
@@ -34,7 +33,9 @@ else
 fi
 
 printf "${GREEN}Compiling ${FT_PRINTF_PATH}/libftprintf.a${CLRCLR}\n"
-make -C $FT_PRINTF_PATH&& cp "${FT_PRINTF_PATH}/${LIBNAME}" .
+make -C $FT_PRINTF_PATH && cp "${FT_PRINTF_PATH}/${LIBNAME}" .
+
+printf "Source files are [${TEST_FILES[@]}]\n"
 
 printf "${GREEN}Generating C main for printf${CLRCLR}\n"
 ./generate_main.sh ${TEST_FILES[@]} > $GENERATED_C_FILE
