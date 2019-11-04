@@ -13,7 +13,7 @@ YOUR_MAKE_TARGETS=all
 
 # If set to true, will also show successful tests output.
 # Note please only set to commands `true` or `false`, not a value!
-SHOW_PASSED_TESTS=false
+SHOW_PASSED_TESTS=true
 # Source files tested if none is given as argument.
 DEFAULT_TEST_FILES=`find . -name "tests*"`
 
@@ -70,7 +70,7 @@ function do_test
 	fi
 }
 
-NB_LINES=$(wc -l ${TEST_FILES[@]} | tail -n1 | grep -Eo '^\s*[0-9]+')
+NB_LINES=$(wc -l ${TEST_FILES[@]} | tail -n1 | sed -E 's/^[ \t]*([0-9]+).*/\1/')
 printf "${GREEN}Running all ${NB_LINES} tests!${CLRCLR}\n"
 
 declare -i errors=0
