@@ -1,8 +1,13 @@
 "Please don't try to get all these tests green. They're here for curiosity and complete knowledge of your function's behaviour. %p", "just wrong"
 "%.7-10#x", 546768
 "%hh0d", 257
+"%15"
+"%15Hexa"
+"%015Zeta"
+"%-015Peta"
 "%ll15.*hh %c", '-', '*'
 "%ll15.*hhZ %c", '-', '*'
+"%.7.*s", -5, "this is a string"
 "%"
 "% "
 "% h"
