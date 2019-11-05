@@ -73,3 +73,4 @@
 "@moulitest: %.d %.0d", 0, 0
 "@moulitest: %5.d %5.0d", 0, 0
 "%hh0d", 257
+"%'d", INT_MAX

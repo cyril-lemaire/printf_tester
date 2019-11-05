@@ -13,7 +13,7 @@ YOUR_MAKE_TARGETS=all
 
 # If set to true, will also show successful tests output.
 # Note please only set to commands `true` or `false`, not a value!
-SHOW_PASSED_TESTS=true
+SHOW_PASSED_TESTS=false
 # Source files tested if none is given as argument.
 DEFAULT_TEST_FILES=`find . -name "tests*"`
 
@@ -31,6 +31,9 @@ if [ $# -gt 0 ]; then
 else
 	TEST_FILES=$DEFAULT_TEST_FILES
 fi
+
+# Let's set a locale
+export LC_ALL='en_GB.UTF-8'
 
 printf "${GREEN}Compiling ${FT_PRINTF_PATH}/libftprintf.a${CLRCLR}\n"
 make -C $FT_PRINTF_PATH && cp "${FT_PRINTF_PATH}/${LIBNAME}" .
@@ -59,8 +62,8 @@ function get_result
 
 function do_test
 {
-	expected=`get_result $PRINTF_TESTER $1`
 	actual=`get_result $FT_PRINTF_TESTER $1`
+	expected=`get_result $PRINTF_TESTER $1`
 	if [ "${expected}" != "${actual}" ]; then
 		printf "${RED}Test #%d Error! ${ORANGE}printf(%s);\n${RED}Sys: ${ORANGE}%s\n${RED}You: ${ORANGE}%s${CLRCLR}\n" $1 "$(cat ${TEST_FILES[@]} | head -n $1 | tail -n 1)" "${expected}" "${actual}"
 		return 1
