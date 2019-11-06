@@ -77,7 +77,7 @@ NB_LINES=$(wc -l ${TEST_FILES[@]} | tail -n1 | sed -E 's/^[ \t]*([0-9]+).*/\1/')
 printf "${GREEN}Running all ${NB_LINES} tests!${CLRCLR}\n"
 
 declare -i errors=0
-for ((i=1; i <= $NB_LINES; i++)); do
+for ((i=1; i <= "${NB_LINES}"; i++)); do
 	do_test $i 2>/dev/null
 	if [ $? -ne 0 ]; then
 		let errors++
