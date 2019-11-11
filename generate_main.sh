@@ -31,6 +31,6 @@ echo	'	{'
 # be corrupted if a test file can't be read!
 printf "%s\n" "$(cat "$@" | cat -n | sed -E 's/^[ \t]*([0-9]+)(.*)/case \1: return (printf(\2));/')"
 
-echo	'default: return (printf("Error 418: Coffee not found!"));'
+echo	'default: return (printf("Error! Invalid argument (Not A Test)!"));'
 echo	'	}'
 echo	'}'

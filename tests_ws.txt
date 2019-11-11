@@ -1,0 +1,2 @@
+"%S", L"Hello, Wŏrld!"
+"%ls", L"Hello, Wŏrld!"

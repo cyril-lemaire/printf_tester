@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/zsh
 
 # Please update these fields to match your project
 
@@ -47,6 +47,7 @@ gcc -w -o $PRINTF_TESTER $GENERATED_C_FILE $LIBNAME > /dev/null
 
 printf "${GREEN}Generating C main for ft_printf${CLRCLR}\n"
 sed "s/(printf(/(ft_printf(/g" "${GENERATED_C_FILE}" > "${TEMP_OUT_FILE}"
+echo "${TEMP_OUT_FILE}" "${GENERATED_C_FILE}"
 cp "${TEMP_OUT_FILE}" "${GENERATED_C_FILE}"
 
 printf "${GREEN}Compiling tester for ft_printf${CLRCLR}\n"
@@ -57,8 +58,20 @@ function get_result
 	./$1 $2 > $TEMP_OUT_FILE 2>&1
 	ret_val=$?
 	output=`cat -e ${TEMP_OUT_FILE}`
-	if [ \( "${output}" = "" \) -a \( "${ret_val}" -eq 139 \) ]; then
-		printf "${RED}CRASH!${CLRCLR}"
+	if [ "${output}" = "" ]; then
+		case "${ret_val}" in
+		"0")
+			:
+			;;
+		"138")
+			printf "${RED}BUS ERROR!${CLRCLR}"
+			;;
+		"139")
+			printf "${RED}SEG FAULT!${CLRCLR}"
+			;;
+		*)
+			printf "ERROR (Code ${ret_val})"
+		esac
 	else
 		printf "(%3d) \"%s\"" "${ret_val}" "${output}"
 	fi
@@ -87,14 +100,14 @@ NB_LINES=$(wc -l ${TEST_FILES[@]} | tail -n1 | sed -E 's/^[ \t]*([0-9]+).*/\1/')
 printf "${GREEN}Running all ${NB_LINES} tests!${CLRCLR}\n"
 
 declare -i errors=0
-for ((i=1; i <= "${NB_LINES}"; i++)); do
+for ((i=1; i <= $NB_LINES; i++)); do
 	do_test $i
 	if [ $? -ne 0 ]; then
 		let errors++
 	fi
 done
 
-rm $TEMP_OUT_FILE
+rm -f "${TEMP_OUT_FILE}"
 
 printf "Final result: "
 if [ $errors -eq 0 ]; then
