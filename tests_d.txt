@@ -73,4 +73,7 @@
 "@moulitest: %.d %.0d", 0, 0
 "@moulitest: %5.d %5.0d", 0, 0
 "%hh0d", 257
+"%lld" "9223372036854775807"
+"%lld", LLONG_MAX
+"%lld", LLONG_MIN
 "%'d", INT_MAX

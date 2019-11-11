@@ -12,10 +12,12 @@ LIBNAME='libftprintf.a'
 YOUR_MAKE_TARGETS=all
 
 # If set to true, will also show successful tests output.
-# Note please only set to commands `true` or `false`, not a value!
+# Note: Please only set to commands `true` or `false`, not a value!
 SHOW_PASSED_TESTS=false
-# Source files tested if none is given as argument.
+# Source files tested if no argument is given.
 DEFAULT_TEST_FILES=`find . -name "tests*"`
+
+
 
 PRINTF_TESTER='printf_tester'
 FT_PRINTF_TESTER='ft_printf_tester'
@@ -32,9 +34,6 @@ else
 	TEST_FILES=$DEFAULT_TEST_FILES
 fi
 
-# Let's set a locale
-export LC_ALL='en_GB.UTF-8'
-
 printf "${GREEN}Compiling ${FT_PRINTF_PATH}/libftprintf.a${CLRCLR}\n"
 make -C $FT_PRINTF_PATH && cp "${FT_PRINTF_PATH}/${LIBNAME}" .
 
@@ -47,7 +46,8 @@ printf "${GREEN}Compiling tester for printf${CLRCLR}\n"
 gcc -w -o $PRINTF_TESTER $GENERATED_C_FILE $LIBNAME > /dev/null
 
 printf "${GREEN}Generating C main for ft_printf${CLRCLR}\n"
-sed -i .back 's/(printf(/(ft_printf(/g' $GENERATED_C_FILE
+sed "s/(printf(/(ft_printf(/g" "${GENERATED_C_FILE}" > "${TEMP_OUT_FILE}"
+cp "${TEMP_OUT_FILE}" "${GENERATED_C_FILE}"
 
 printf "${GREEN}Compiling tester for ft_printf${CLRCLR}\n"
 gcc -w -o $FT_PRINTF_TESTER $GENERATED_C_FILE $LIBNAME >/dev/null
@@ -57,13 +57,23 @@ function get_result
 	./$1 $2 > $TEMP_OUT_FILE 2>&1
 	ret_val=$?
 	output=`cat -e ${TEMP_OUT_FILE}`
-	printf "(%3d) \"%s\"" "${ret_val}" "${output}"
+	if [ \( "${output}" = "" \) -a \( "${ret_val}" -eq 139 \) ]; then
+		printf "${RED}CRASH!${CLRCLR}"
+	else
+		printf "(%3d) \"%s\"" "${ret_val}" "${output}"
+	fi
 }
 
 function do_test
 {
 	actual=`get_result $FT_PRINTF_TESTER $1`
+	if [ ! $? ]; then
+		actual='crash'
+	fi
 	expected=`get_result $PRINTF_TESTER $1`
+	if [ ! $? ]; then
+		expected='crash'
+	fi
 	if [ "${expected}" != "${actual}" ]; then
 		printf "${RED}Test #%d Error! ${ORANGE}printf(%s);\n${RED}Sys: ${ORANGE}%s\n${RED}You: ${ORANGE}%s${CLRCLR}\n" $1 "$(cat ${TEST_FILES[@]} | head -n $1 | tail -n 1)" "${expected}" "${actual}"
 		return 1
@@ -78,15 +88,17 @@ printf "${GREEN}Running all ${NB_LINES} tests!${CLRCLR}\n"
 
 declare -i errors=0
 for ((i=1; i <= "${NB_LINES}"; i++)); do
-	do_test $i 2>/dev/null
+	do_test $i
 	if [ $? -ne 0 ]; then
 		let errors++
 	fi
 done
 
+rm $TEMP_OUT_FILE
+
 printf "Final result: "
 if [ $errors -eq 0 ]; then
-	printf "${GREEN}Congratulations! 0 error found :D${CLRCLR}\n"
+	printf "${GREEN}Congratulation! 0 error found :D${CLRCLR}\n"
 else
 	printf "${RED}${errors} difference(s) found! :(${CLRCLR}\n"
 fi
