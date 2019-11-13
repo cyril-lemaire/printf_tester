@@ -29,7 +29,7 @@ echo	'	{'
 # Print all tests from source files as cases, ordered by line.
 # Note: I deliberately did not redirect stderr to /dev/null, generated file will
 # be corrupted if a test file can't be read!
-printf "%s\n" "$(cat "$@" | cat -n | sed -E 's/^[ \t]*([0-9]+)(.*)/case \1: return (printf(\2));/')"
+printf "%s\n" "$(cat $@ | cat -n | sed -E 's/^[ \t]*([0-9]+)(.*)/case \1: return (printf(\2));/')"
 
 echo	'default: return (printf("Error! Invalid argument (Not A Test)!"));'
 echo	'	}'
