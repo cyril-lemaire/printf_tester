@@ -15,8 +15,7 @@ YOUR_MAKE_TARGETS=debug
 # Note: Please only set to commands `true` or `false`, not a value!
 SHOW_PASSED_TESTS=true
 # Source files tested if no argument is given.
-DEFAULT_TEST_FILES=("$(find . -name "tests*")")
-
+DEFAULT_TEST_FILES=(`find . -name "tests*"`)
 
 
 PRINTF_TESTER='printf_tester'
@@ -59,7 +58,7 @@ function get_result
 	output=`cat -e ${TEMP_OUT_FILE}`
 	if [ "${output}" = "" ]; then
 		case "${ret_val}" in
-		"0")
+		"0" | "255")
 			printf "(%3d) \"%s\"" "${ret_val}" "${output}"
 			;;
 		"138")

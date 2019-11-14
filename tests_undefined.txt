@@ -63,6 +63,11 @@
 "%hhld", 2147483647
 "%lhh", 2147483647
 "%hhld", 128
+"%hhld", LONG_MIN
+"%lhhd", LONG_MIN
+"%llld", LLONG_MIN
+"%lllhhd", LLONG_MIN
+"%hhld", 128
 "@main_ftprintf: %####0000 33..1..#00d\\n", 256
 "@main_ftprintf: %####0000 33..1d", 256
 "@main_ftprintf: %###-#0000 33...12..#0+0d", 256
