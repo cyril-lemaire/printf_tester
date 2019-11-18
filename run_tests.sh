@@ -42,14 +42,14 @@ printf "${GREEN}Generating C main for printf${CLRCLR}\n"
 ./generate_main.sh "${TEST_FILES[@]}" > $GENERATED_C_FILE
 
 printf "${GREEN}Compiling tester for printf${CLRCLR}\n"
-gcc -w -g -o $PRINTF_TESTER $GENERATED_C_FILE $LIBNAME > /dev/null
+clang -w -g -lm -o $PRINTF_TESTER $GENERATED_C_FILE > /dev/null
 
 printf "${GREEN}Generating C main for ft_printf${CLRCLR}\n"
 sed "s/(printf(/(ft_printf(/g" "${GENERATED_C_FILE}" > "${TEMP_OUT_FILE}"
 cp "${TEMP_OUT_FILE}" "${GENERATED_C_FILE}"
 
 printf "${GREEN}Compiling tester for ft_printf${CLRCLR}\n"
-gcc -w -g -o $FT_PRINTF_TESTER $GENERATED_C_FILE $LIBNAME > /dev/null
+clang -w -g -lm -o $FT_PRINTF_TESTER $GENERATED_C_FILE $LIBNAME > /dev/null
 
 function get_result
 {
