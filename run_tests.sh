@@ -30,7 +30,7 @@ CLRCLR='\033[0m'
 if [ $# -gt 0 ]; then
 	TEST_FILES=("$@")
 else
-	TEST_FILES="${DEFAULT_TEST_FILES[@]}"
+	TEST_FILES=("${DEFAULT_TEST_FILES[@]}")
 fi
 
 printf "${GREEN}Compiling ${FT_PRINTF_PATH}/libftprintf.a${CLRCLR}\n"
