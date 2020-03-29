@@ -22,11 +22,17 @@ PRINTF_TESTER='printf_tester'
 FT_PRINTF_TESTER='ft_printf_tester'
 GENERATED_C_FILE='main.c'
 TEMP_OUT_FILE=`mktemp`
-GREEN='\033[0;32m'
-RED='\033[0;31m'
-ORANGE='\033[0;33m'
-CLRCLR='\033[0m'
-
+if [ -t 1 ]; then	# Colours only work in terminal.
+	GREEN='\033[0;32m'
+	RED='\033[0;31m'
+	ORANGE='\033[0;33m'
+	CLRCLR='\033[0m'
+else
+	GREEN=''
+	RED=''
+	ORANGE=''
+	CLRCLR=''
+fi
 if [ $# -gt 0 ]; then
 	TEST_FILES=("$@")
 else
