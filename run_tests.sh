@@ -2,7 +2,7 @@
 
 # Please update these fields to match your project
 
-FT_PRINTF_PATH='../ft_printf_reborn'
+FT_PRINTF_PATH='../ft_printf'
 LIBNAME='libftprintf.a'
 
 # Settings
@@ -13,7 +13,7 @@ YOUR_MAKE_TARGETS=debug
 
 # If set to true, will also show successful tests output.
 # Note: Please only set to commands `true` or `false`, not a value!
-SHOW_PASSED_TESTS=true
+SHOW_PASSED_TESTS=false
 # Source files tested if no argument is given.
 DEFAULT_TEST_FILES=(`find . -name "tests*"`)
 
